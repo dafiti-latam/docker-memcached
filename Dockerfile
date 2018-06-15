@@ -20,7 +20,6 @@ RUN set -x \
 		wget \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
-	&& apt-get install -y curl \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
 	&& wget -O memcached.tar.gz "https://memcached.org/files/memcached-$MEMCACHED_VERSION.tar.gz" \
@@ -60,6 +59,7 @@ RUN set -x \
 	&& memcached -V
 
 COPY docker-entrypoint.sh /usr/local/bin/
+RUN apt-get update && apt-get install -y curl
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 

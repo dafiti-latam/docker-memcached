@@ -20,6 +20,7 @@ RUN set -x \
 		wget \
 	' \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+	&& apt-get install -y curl \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
 	&& wget -O memcached.tar.gz "https://memcached.org/files/memcached-$MEMCACHED_VERSION.tar.gz" \
@@ -55,7 +56,6 @@ RUN set -x \
 		libevent-2.0-5 \
 		libsasl2-2 \
 	&& apt-get purge -y --auto-remove $buildDeps \
-	&& apt-get install -y curl \
 	\
 	&& memcached -V
 
